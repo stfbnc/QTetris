@@ -5,7 +5,7 @@
 #include <QTimer>
 #include <QKeyEvent>
 #include "board.h"
-#include "tetrispiece.h"
+#include "piecefactory.h"
 
 #include <QDebug>
 

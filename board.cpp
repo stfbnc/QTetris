@@ -6,9 +6,10 @@ Board::Board(QWidget *parent) :
 
 Board::~Board(){}
 
-void Board::updateBoard(const std::vector<QPoint> &coords)
+void Board::updateBoard(const std::vector<QPoint> &coords, const QColor color)
 {
-    coordsToFill = coords;
+    m_coordsToFill = coords;
+    m_color = color;
     this->update();
 }
 
@@ -16,12 +17,13 @@ void Board::paintEvent(QPaintEvent *e)
 {
     QPainter paint(this);
 
-    for(QPoint c : coordsToFill)
+    for(QPoint c : m_coordsToFill)
     {
-        QRect rect(c, QSize(squareSize, squareSize));
-        paint.fillRect(rect, QBrush(QColor(Qt::red)));
-        QRect innerRect(QPoint(c.x() + (squareSize - innerSquareSize) / 2, c.y() + (squareSize - innerSquareSize) / 2),
-                        QSize(innerSquareSize, innerSquareSize));
+        QRect rect(c, QSize(m_squareSize, m_squareSize));
+        paint.fillRect(rect, QBrush(m_color));
+        QRect innerRect(QPoint(c.x() + (m_squareSize - m_innerSquareSize) / 2,
+                               c.y() + (m_squareSize - m_innerSquareSize) / 2),
+                        QSize(m_innerSquareSize, m_innerSquareSize));
         paint.fillRect(innerRect, QBrush(QColor(Qt::darkGray)));
     }
 

@@ -25,8 +25,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::startGame()
 {
-    currentPiece = new TetrisPiece();
-    timer->start(NORMAL);
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+    std::rand();
+    currentPiece = PieceFactory::getRandomPiece();
+    timer->start(VERY_SLOW);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -37,14 +39,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         timer->stop();
     else if(event->key() == Qt::Key_R)
         timer->start();
-    else if(event->key() == Qt::Key_Right)
+    else if(event->key() == Qt::Key_D)
         currentPiece->moveRight();
-    else if(event->key() == Qt::Key_Left)
+    else if(event->key() == Qt::Key_A)
         currentPiece->moveLeft();
+    else if(event->key() == Qt::Key_S)
+        currentPiece->rotate();
 }
 
 void MainWindow::updateGame()
 {
-    ui->frame->updateBoard(currentPiece->getPieceCoords());
+    ui->frame->updateBoard(currentPiece->getPieceCoords(), currentPiece->getColor());
     currentPiece->moveDown();
 }

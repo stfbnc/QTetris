@@ -1,43 +1,37 @@
 #include "tetrispiece.h"
 
-TetrisPiece::TetrisPiece(QObject *parent) :
+TetrisPiece::TetrisPiece(QColor color, QObject *parent) :
+    m_color(color),
     QObject(parent)
 {
-    pieceCoords = std::vector<QPoint>();
-    createObject();
 }
 
 TetrisPiece::~TetrisPiece(){}
 
-void TetrisPiece::createObject()
-{
-    pieceCoords.push_back(QPoint(10, 10));
-}
-
 void TetrisPiece::moveRight()
 {
-    for(QPoint &p : pieceCoords)
-        p += QPoint(step, 0);
+    for(QPoint &p : m_pieceCoords)
+        p += QPoint(m_step, 0);
 }
 
 void TetrisPiece::moveLeft()
 {
-    for(QPoint &p : pieceCoords)
-        p -= QPoint(step, 0);
+    for(QPoint &p : m_pieceCoords)
+        p -= QPoint(m_step, 0);
 }
 
 void TetrisPiece::moveDown()
 {
-    for(QPoint &p : pieceCoords)
-        p += QPoint(0, step);
-}
-
-void TetrisPiece::rotate()
-{
-
+    for(QPoint &p : m_pieceCoords)
+        p += QPoint(0, m_step);
 }
 
 std::vector<QPoint> TetrisPiece::getPieceCoords()
 {
-    return pieceCoords;
+    return m_pieceCoords;
+}
+
+QColor TetrisPiece::getColor()
+{
+    return m_color;
 }

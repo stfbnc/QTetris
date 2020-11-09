@@ -3,23 +3,27 @@
 
 #include <QObject>
 #include <QPoint>
+#include <QColor>
 
 class TetrisPiece : public QObject
 {
 Q_OBJECT
 public:
-    explicit TetrisPiece(QObject *parent=nullptr);
+    explicit TetrisPiece(QColor color, QObject *parent=nullptr);
     virtual ~TetrisPiece();
-    void createObject();
+    virtual void initialize() = 0;
     void moveRight();
     void moveLeft();
     void moveDown();
-    void rotate();
+    virtual void rotate() = 0;
     std::vector<QPoint> getPieceCoords();
-private:
-    std::vector<QPoint> pieceCoords;
+    QColor getColor();
+protected:
+    std::vector<QPoint> m_pieceCoords;
+    QColor m_color{};
+    int m_nRot = 0;
 
-    const int step = 20;
+    const int m_step = 20;
 };
 
 #endif // TETRISPIECE_H
