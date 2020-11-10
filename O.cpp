@@ -4,6 +4,7 @@ O::O() :
     TetrisPiece(QColor(Qt::red))
 {
     initialize();
+    m_nRot = 0;
 }
 
 O::~O(){}
