@@ -11,10 +11,10 @@ O::~O(){}
 
 void O::initialize()
 {
-    m_pieceCoords.push_back(QPoint(10, 10));
-    m_pieceCoords.push_back(QPoint(10 + m_step, 10));
-    m_pieceCoords.push_back(QPoint(10, 10 + m_step));
-    m_pieceCoords.push_back(QPoint(10 + m_step, 10 + m_step));
+    m_pieceCoords.push_back(QPoint(startPoint.x(), startPoint.y()));
+    m_pieceCoords.push_back(QPoint(startPoint.x() + STEP, startPoint.y()));
+    m_pieceCoords.push_back(QPoint(startPoint.x(), startPoint.y() + STEP));
+    m_pieceCoords.push_back(QPoint(startPoint.x() + STEP, startPoint.y() + STEP));
 }
 
 void O::rotate()

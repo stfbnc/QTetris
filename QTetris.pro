@@ -15,6 +15,8 @@ SOURCES += \
     T.cpp \
     Z.cpp \
     board.cpp \
+    datamanager.cpp \
+    game.cpp \
     main.cpp \
     mainwindow.cpp \
     piecefactory.cpp \
@@ -29,6 +31,9 @@ HEADERS += \
     T.h \
     Z.h \
     board.h \
+    datamanager.h \
+    defines.h \
+    game.h \
     mainwindow.h \
     piecefactory.h \
     tetrispiece.h

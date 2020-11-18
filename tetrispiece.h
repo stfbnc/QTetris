@@ -1,9 +1,13 @@
 #ifndef TETRISPIECE_H
 #define TETRISPIECE_H
 
+#include <iostream>
 #include <QObject>
 #include <QPoint>
 #include <QColor>
+#include <QPolygon>
+#include <QVector>
+#include "defines.h"
 
 class TetrisPiece : public QObject
 {
@@ -18,12 +22,15 @@ public:
     virtual void rotate() = 0;
     std::vector<QPoint> getPieceCoords();
     QColor getColor();
+    int getRightPosition();
+    int getLeftPosition();
 protected:
     std::vector<QPoint> m_pieceCoords;
     QColor m_color{};
     int m_nRot = 0;
-
-    const int m_step = 20;
+    int rightPos = 0;
+    int leftPos = 0;
+    QPoint startPoint;
 };
 
 #endif // TETRISPIECE_H

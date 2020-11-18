@@ -2,10 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTimer>
 #include <QKeyEvent>
+#include <QThread>
 #include "board.h"
-#include "piecefactory.h"
+#include "datamanager.h"
+#include "game.h"
 
 #include <QDebug>
 
@@ -21,13 +22,20 @@ Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent=nullptr);
     virtual ~MainWindow();
+signals:
+    void stopGame();
+    void resumeGame();
+    void speedChanged(int speed);
 private:
     void startGame();
+    void closeEvent(QCloseEvent *event);
     void keyPressEvent(QKeyEvent *event);
 
     Ui::MainWindow *ui;
-    QTimer *timer;
-    TetrisPiece *currentPiece;
+    Game *game1;
+    Game *game2;
+    DataManager *gameData1;
+    DataManager *gameData2;
 
     enum SPEED
     {
@@ -37,7 +45,5 @@ private:
         FAST = 125,
         VERY_FAST = 50
     };
-private slots:
-    void updateGame();
 };
 #endif // MAINWINDOW_H
