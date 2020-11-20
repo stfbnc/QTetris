@@ -31,10 +31,11 @@ std::vector<QPoint> DataManager::getPieceCoords()
     return pieceCoords;
 }
 
-void DataManager::setBorders(int left, int right)
+void DataManager::setBorders(int left, int right, int bottom)
 {
     leftBorder = left;
     rightBorder = right;
+    bottomBorder = bottom;
 }
 
 int DataManager::getRightBorder()
@@ -45,4 +46,9 @@ int DataManager::getRightBorder()
 int DataManager::getLeftBorder()
 {
     return leftBorder;
+}
+
+int DataManager::getBottomBorder()
+{
+    return bottomBorder;
 }

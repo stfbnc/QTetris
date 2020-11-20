@@ -15,14 +15,16 @@ public:
     QColor getPieceColor();
     void setPieceCoords(std::vector<QPoint> coords);
     std::vector<QPoint> getPieceCoords();
-    void setBorders(int left, int right);
+    void setBorders(int left, int right, int bottom);
     int getRightBorder();
     int getLeftBorder();
+    int getBottomBorder();
 signals:
     void updateBoard();
 private:
     int leftBorder = 0;
     int rightBorder = 0;
+    int bottomBorder = 0;
     QColor color;
     std::vector<QPoint> pieceCoords;
 };

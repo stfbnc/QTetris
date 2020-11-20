@@ -48,3 +48,9 @@ int TetrisPiece::getLeftPosition()
     QPolygon poly(QVector<QPoint>(m_pieceCoords.begin(), m_pieceCoords.end()));
     return poly.boundingRect().left();
 }
+
+int TetrisPiece::getBottomPosition()
+{
+    QPolygon poly(QVector<QPoint>(m_pieceCoords.begin(), m_pieceCoords.end()));
+    return (poly.boundingRect().bottom() + STEP);
+}

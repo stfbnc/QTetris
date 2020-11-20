@@ -24,6 +24,7 @@ public:
     QColor getColor();
     int getRightPosition();
     int getLeftPosition();
+    int getBottomPosition();
 protected:
     std::vector<QPoint> m_pieceCoords;
     QColor m_color{};

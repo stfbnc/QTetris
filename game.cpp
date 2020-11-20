@@ -30,7 +30,11 @@ void Game::move(int direction)
             currentPiece->moveLeft();
     }
     else if(direction == ROTATE)
-        currentPiece->rotate();
+    {
+        if((currentPiece->getRightPosition() != dataManager->getRightBorder()) &&
+           (currentPiece->getLeftPosition() != dataManager->getLeftBorder()))
+            currentPiece->rotate();
+    }
 }
 
 void Game::setSpeed(int speed)
@@ -55,8 +59,17 @@ void Game::startGame()
 
 void Game::updateGame()
 {
-    currentPiece->moveDown();
-    dataManager->setPieceCoords(currentPiece->getPieceCoords());
+    if(currentPiece->getBottomPosition() != dataManager->getBottomBorder())
+    {
+        currentPiece->moveDown();
+        dataManager->setPieceCoords(currentPiece->getPieceCoords());
+    }
+    else
+    {
+        delete currentPiece;
+        currentPiece = nullptr;
+        newPiece();
+    }
 }
 
 void Game::newPiece()

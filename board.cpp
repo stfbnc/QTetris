@@ -14,7 +14,7 @@ Board::~Board()
 void Board::setDataManager(DataManager *dm)
 {
     dataManager = dm;
-    dataManager->setBorders(0, MAXW);
+    dataManager->setBorders(0, MAXW, MAXH);
     connect(dataManager, SIGNAL(updateBoard()), this, SLOT(updateBoard()));
 }
 
