@@ -14,6 +14,7 @@ class TetrisPiece : public QObject
 Q_OBJECT
 public:
     explicit TetrisPiece(QColor color, QObject *parent=nullptr);
+    TetrisPiece(const TetrisPiece &tp);
     virtual ~TetrisPiece();
     virtual void initialize() = 0;
     void moveRight();

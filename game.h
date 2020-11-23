@@ -10,17 +10,18 @@ class Game : public QObject
 {
 Q_OBJECT
 public:
-    Game(int s, DataManager *dm);
-    ~Game();
-    void move(int direction);
-
     enum MOVES
     {
         RIGHT,
         LEFT,
         DOWN,
+        DOWN_FAST,
         ROTATE
     };
+
+    Game(int s, DataManager *dm);
+    ~Game();
+    void move(MOVES direction);
 public slots:
     void setSpeed(int speed);
     void resumeGame();
@@ -29,6 +30,7 @@ public slots:
     void updateGame();
 private:
     void newPiece();
+    bool canMove(MOVES direction);
 
     int speed;
     QTimer *timer;

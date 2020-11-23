@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QColor>
 #include <QPoint>
+#include "defines.h"
 
 class DataManager : public QObject
 {
@@ -12,13 +13,15 @@ public:
     DataManager();
     ~DataManager();
     void setPieceColor(QColor c);
-    QColor getPieceColor();
-    void setPieceCoords(std::vector<QPoint> coords);
-    std::vector<QPoint> getPieceCoords();
+    const QColor getPieceColor();
+    void setPieceCoords(std::vector<QPoint> coords, bool isNew=false);
+    //std::vector<QPoint> getPieceCoords();
     void setBorders(int left, int right, int bottom);
     int getRightBorder();
     int getLeftBorder();
     int getBottomBorder();
+    void initializeMap();
+    const std::map<std::pair<int, int>, QColor> getBoardMap();
 signals:
     void updateBoard();
 private:
@@ -27,6 +30,7 @@ private:
     int bottomBorder = 0;
     QColor color;
     std::vector<QPoint> pieceCoords;
+    std::map<std::pair<int, int>, QColor> boardMap = std::map<std::pair<int, int>, QColor>();
 };
 
 #endif // DATAMANAGER_H

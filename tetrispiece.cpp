@@ -7,6 +7,11 @@ TetrisPiece::TetrisPiece(QColor color, QObject *parent) :
     startPoint = QPoint(((MAXW / STEP) / 2) * STEP, 0);
 }
 
+TetrisPiece::TetrisPiece(const TetrisPiece &tp)
+{
+    m_pieceCoords = tp.m_pieceCoords;
+}
+
 TetrisPiece::~TetrisPiece(){}
 
 void TetrisPiece::moveRight()

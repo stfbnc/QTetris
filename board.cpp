@@ -14,7 +14,6 @@ Board::~Board()
 void Board::setDataManager(DataManager *dm)
 {
     dataManager = dm;
-    dataManager->setBorders(0, MAXW, MAXH);
     connect(dataManager, SIGNAL(updateBoard()), this, SLOT(updateBoard()));
 }
 
@@ -27,14 +26,18 @@ void Board::paintEvent(QPaintEvent *e)
 {
     QPainter paint(this);
 
-    for(QPoint c : dataManager->getPieceCoords())
+    for(auto [coords, color] : dataManager->getBoardMap())
     {
-        QRect rect(c, QSize(STEP, STEP));
-        paint.fillRect(rect, QBrush(dataManager->getPieceColor()));
-        QRect innerRect(QPoint(c.x() + (STEP - m_innerSquareSize) / 2,
-                               c.y() + (STEP - m_innerSquareSize) / 2),
-                        QSize(m_innerSquareSize, m_innerSquareSize));
-        paint.fillRect(innerRect, QBrush(QColor(Qt::darkGray)));
+        if(color != Qt::transparent)
+        {
+            QPoint point = QPoint(coords.first, coords.second);
+            QRect rect(point, QSize(STEP, STEP));
+            paint.fillRect(rect, QBrush(color));
+            QRect innerRect(QPoint(point.x() + (STEP - m_innerSquareSize) / 2,
+                                   point.y() + (STEP - m_innerSquareSize) / 2),
+                            QSize(m_innerSquareSize, m_innerSquareSize));
+            paint.fillRect(innerRect, QBrush(QColor(Qt::darkGray)));
+        }
     }
 
     QFrame::paintEvent(e);
