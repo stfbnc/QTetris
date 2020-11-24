@@ -4,6 +4,9 @@ Game::Game(int s, DataManager *dm) :
     speed(s),
     dataManager(dm)
 {
+    running = false;
+    moving = false;
+
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateGame()));
 
@@ -19,31 +22,40 @@ Game::~Game()
 
 void Game::move(MOVES direction)
 {
-    if(direction == RIGHT)
+    moving = true;
+    if(running)
     {
-        if(currentPiece->getRightPosition() < dataManager->getRightBorder())
+        if(canMove(direction))
         {
-            currentPiece->moveRight();
-            dataManager->setPieceCoords(currentPiece->getPieceCoords());
+            switch(direction)
+            {
+                case RIGHT:
+                    currentPiece->moveRight();
+                    dataManager->setPieceCoords(currentPiece->getPieceCoords());
+                    break;
+                case LEFT:
+                    currentPiece->moveLeft();
+                    dataManager->setPieceCoords(currentPiece->getPieceCoords());
+                    break;
+                case ROTATE:
+                    currentPiece->rotate();
+                    dataManager->setPieceCoords(currentPiece->getPieceCoords());
+                    break;
+                case DOWN_FAST:
+                    running = false;
+                    while(canMove(DOWN))
+                    {
+                        currentPiece->moveDown();
+                        dataManager->setPieceCoords(currentPiece->getPieceCoords());
+                    }
+                    running = true;
+                    break;
+                case DOWN:
+                    break;
+            }
         }
     }
-    else if(direction == LEFT)
-    {
-        if(currentPiece->getLeftPosition() > dataManager->getLeftBorder())
-        {
-            currentPiece->moveLeft();
-            dataManager->setPieceCoords(currentPiece->getPieceCoords());
-        }
-    }
-    else if(direction == ROTATE)
-    {
-        if((currentPiece->getRightPosition() != dataManager->getRightBorder()) &&
-           (currentPiece->getLeftPosition() != dataManager->getLeftBorder()))
-        {
-            currentPiece->rotate();
-            dataManager->setPieceCoords(currentPiece->getPieceCoords());
-        }
-    }
+    moving = false;
 }
 
 void Game::setSpeed(int speed)
@@ -53,65 +65,106 @@ void Game::setSpeed(int speed)
 
 void Game::resumeGame()
 {
+    running = true;
     timer->start();
 }
 
 void Game::stopGame()
 {
+    running = false;
     timer->stop();
 }
 
 void Game::startGame()
 {
+    running = true;
     timer->start(speed);
 }
 
 void Game::updateGame()
 {
-    if(canMove(DOWN))
+    if(!moving)
     {
-        currentPiece->moveDown();
-        dataManager->setPieceCoords(currentPiece->getPieceCoords());
-    }
-    else
-    {
-        delete currentPiece;
-        currentPiece = nullptr;
-        newPiece();
-        dataManager->setPieceCoords(currentPiece->getPieceCoords(), true);
+        if(canMove(DOWN))
+        {
+            currentPiece->moveDown();
+            dataManager->setPieceCoords(currentPiece->getPieceCoords());
+        }
+        else
+        {
+            deletePiece();
+            newPiece();
+        }
     }
 }
 
 void Game::newPiece()
 {
     currentPiece = PieceFactory::getRandomPiece();
+    dataManager->setPieceCoords(currentPiece->getPieceCoords(), true);
     dataManager->setPieceColor(currentPiece->getColor());
+}
+
+void Game::deletePiece()
+{
+    delete currentPiece;
+    currentPiece = nullptr;
 }
 
 bool Game::canMove(MOVES direction)
 {
-    auto temporaryUpdatedPiece(currentPiece);
+    auto temporaryUpdatedPiece = currentPiece->clone();
     std::map<std::pair<int, int>, QColor> map = dataManager->getBoardMap();
+
     switch(direction)
     {
         case DOWN:
             temporaryUpdatedPiece->moveDown();
-            if(temporaryUpdatedPiece->getBottomPosition() >= dataManager->getBottomBorder())
+            if(temporaryUpdatedPiece->getBottomPosition() > dataManager->getBottomBorder())
                 return false;
             for(QPoint p : temporaryUpdatedPiece->getPieceCoords())
             {
-                if((std::find(currentPiece->getPieceCoords().begin(), currentPiece->getPieceCoords().end(), p) == currentPiece->getPieceCoords().end()) &&
-                   (map[std::pair<int, int>(p.x(), p.y())] != Qt::transparent))
+                if(map[std::pair<int, int>(p.x(), p.y())] != Qt::transparent)
                     return false;
             }
             return true;
         case RIGHT:
-            return false;
+            temporaryUpdatedPiece->moveRight();
+            if(temporaryUpdatedPiece->getRightPosition() > dataManager->getRightBorder())
+                return false;
+            for(QPoint p : temporaryUpdatedPiece->getPieceCoords())
+            {
+                if(map[std::pair<int, int>(p.x(), p.y())] != Qt::transparent)
+                    return false;
+            }
+            return true;
         case LEFT:
-            return false;
+            temporaryUpdatedPiece->moveLeft();
+            if(temporaryUpdatedPiece->getLeftPosition() < dataManager->getLeftBorder())
+                return false;
+            for(QPoint p : temporaryUpdatedPiece->getPieceCoords())
+            {
+                if(map[std::pair<int, int>(p.x(), p.y())] != Qt::transparent)
+                    return false;
+            }
+            return true;
         case DOWN_FAST:
-            return false;
+            return true;
         case ROTATE:
-            return false;
+            temporaryUpdatedPiece->rotate();
+            if(temporaryUpdatedPiece->getLeftPosition() < dataManager->getLeftBorder())
+                return false;
+            if(temporaryUpdatedPiece->getRightPosition() > dataManager->getRightBorder())
+                return false;
+            if(temporaryUpdatedPiece->getBottomPosition() > dataManager->getBottomBorder())
+                return false;
+            for(QPoint p : temporaryUpdatedPiece->getPieceCoords())
+            {
+                if(map[std::pair<int, int>(p.x(), p.y())] != Qt::transparent)
+                    return false;
+            }
+            return true;
     }
+
+    delete temporaryUpdatedPiece;
 }

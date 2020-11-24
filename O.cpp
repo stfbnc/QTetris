@@ -9,6 +9,11 @@ O::O() :
 
 O::~O(){}
 
+O* O::clone() const
+{
+    return new O(*this);
+}
+
 void O::initialize()
 {
     m_pieceCoords.push_back(QPoint(startPoint.x(), startPoint.y()));

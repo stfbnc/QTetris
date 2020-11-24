@@ -9,6 +9,11 @@ Z::Z() :
 
 Z::~Z(){}
 
+Z* Z::clone() const
+{
+    return new Z(*this);
+}
+
 void Z::initialize()
 {
     m_pieceCoords.push_back(QPoint(startPoint.x() - STEP, startPoint.y()));

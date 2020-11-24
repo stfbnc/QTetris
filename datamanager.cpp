@@ -23,22 +23,20 @@ const QColor DataManager::getPieceColor()
 
 void DataManager::setPieceCoords(std::vector<QPoint> coords, bool isNew)
 {
-    if(!isNew)
+    if(isNew)
     {
         for(QPoint p : pieceCoords)
-            boardMap[std::pair<int, int>(p.x(), p.y())] = Qt::transparent;
+            boardMap[std::pair<int, int>(p.x(), p.y())] = color;
     }
-    for(QPoint p : coords)
-        boardMap[std::pair<int, int>(p.x(), p.y())] = color;
     pieceCoords = coords;
 
     emit updateBoard();
 }
 
-/*std::vector<QPoint> DataManager::getPieceCoords()
+const std::vector<QPoint> DataManager::getPieceCoords()
 {
     return pieceCoords;
-}*/
+}
 
 void DataManager::setBorders(int left, int right, int bottom)
 {
@@ -64,11 +62,11 @@ int DataManager::getBottomBorder()
 
 void DataManager::initializeMap()
 {
-    for(int i = 0; i < (MAXH / STEP); ++i)
+    for(int i = 0; i < MAXH; ++i)
     {
-        for(int j = 0; j < (MAXW / STEP); ++j)
+        for(int j = 0; j < MAXW; ++j)
         {
-            boardMap[std::pair<int, int>(i, j)] = Qt::transparent;
+            boardMap[std::pair<int, int>(i * STEP, j * STEP)] = Qt::transparent;
         }
     }
 }

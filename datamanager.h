@@ -15,7 +15,7 @@ public:
     void setPieceColor(QColor c);
     const QColor getPieceColor();
     void setPieceCoords(std::vector<QPoint> coords, bool isNew=false);
-    //std::vector<QPoint> getPieceCoords();
+    const std::vector<QPoint> getPieceCoords();
     void setBorders(int left, int right, int bottom);
     int getRightBorder();
     int getLeftBorder();
@@ -29,7 +29,7 @@ private:
     int rightBorder = 0;
     int bottomBorder = 0;
     QColor color;
-    std::vector<QPoint> pieceCoords;
+    std::vector<QPoint> pieceCoords = std::vector<QPoint>();
     std::map<std::pair<int, int>, QColor> boardMap = std::map<std::pair<int, int>, QColor>();
 };
 

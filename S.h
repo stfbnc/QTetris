@@ -9,6 +9,7 @@ Q_OBJECT
 public:
     explicit S();
     ~S();
+    S* clone() const override;
     void initialize() override;
     void rotate() override;
 };

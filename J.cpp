@@ -9,6 +9,11 @@ J::J() :
 
 J::~J(){}
 
+J* J::clone() const
+{
+    return new J(*this);
+}
+
 void J::initialize()
 {
     m_pieceCoords.push_back(QPoint(startPoint.x(), startPoint.y()));

@@ -9,6 +9,11 @@ T::T() :
 
 T::~T(){}
 
+T* T::clone() const
+{
+    return new T(*this);
+}
+
 void T::initialize()
 {
     m_pieceCoords.push_back(QPoint(startPoint.x() - STEP, startPoint.y()));

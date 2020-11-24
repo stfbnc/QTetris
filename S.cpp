@@ -9,6 +9,11 @@ S::S() :
 
 S::~S(){}
 
+S* S::clone() const
+{
+    return new S(*this);
+}
+
 void S::initialize()
 {
     m_pieceCoords.push_back(QPoint(startPoint.x(), startPoint.y()));

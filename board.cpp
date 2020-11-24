@@ -26,6 +26,16 @@ void Board::paintEvent(QPaintEvent *e)
 {
     QPainter paint(this);
 
+    for(auto coord : dataManager->getPieceCoords())
+    {
+        QRect rect(coord, QSize(STEP, STEP));
+        paint.fillRect(rect, QBrush(dataManager->getPieceColor()));
+        QRect innerRect(QPoint(coord.x() + (STEP - m_innerSquareSize) / 2,
+                               coord.y() + (STEP - m_innerSquareSize) / 2),
+                        QSize(m_innerSquareSize, m_innerSquareSize));
+        paint.fillRect(innerRect, QBrush(QColor(Qt::darkGray)));
+    }
+
     for(auto [coords, color] : dataManager->getBoardMap())
     {
         if(color != Qt::transparent)

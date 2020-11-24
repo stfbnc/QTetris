@@ -64,4 +64,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         game1->move(Game::LEFT);
     else if(event->key() == Qt::Key_S)
         game1->move(Game::ROTATE);
+    else if(event->key() == Qt::Key_Space)
+        game1->move(Game::DOWN_FAST);
 }

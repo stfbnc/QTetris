@@ -16,6 +16,7 @@ public:
     explicit TetrisPiece(QColor color, QObject *parent=nullptr);
     TetrisPiece(const TetrisPiece &tp);
     virtual ~TetrisPiece();
+    virtual TetrisPiece* clone() const = 0;
     virtual void initialize() = 0;
     void moveRight();
     void moveLeft();
@@ -28,7 +29,7 @@ public:
     int getBottomPosition();
 protected:
     std::vector<QPoint> m_pieceCoords;
-    QColor m_color{};
+    QColor m_color;
     int m_nRot = 0;
     int rightPos = 0;
     int leftPos = 0;

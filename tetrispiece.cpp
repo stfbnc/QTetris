@@ -29,7 +29,7 @@ void TetrisPiece::moveLeft()
 void TetrisPiece::moveDown()
 {
     for(QPoint &p : m_pieceCoords)
-        p += QPoint(0, SMALL_STEP);
+        p += QPoint(0, STEP);
 }
 
 std::vector<QPoint> TetrisPiece::getPieceCoords()

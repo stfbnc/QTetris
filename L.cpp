@@ -9,6 +9,11 @@ L::L() :
 
 L::~L(){}
 
+L* L::clone() const
+{
+    return new L(*this);
+}
+
 void L::initialize()
 {
     m_pieceCoords.push_back(QPoint(startPoint.x() + 2 * STEP, startPoint.y()));

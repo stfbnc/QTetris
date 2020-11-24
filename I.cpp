@@ -9,6 +9,11 @@ I::I() :
 
 I::~I(){}
 
+I* I::clone() const
+{
+    return new I(*this);
+}
+
 void I::initialize()
 {
     m_pieceCoords.push_back(QPoint(startPoint.x(), startPoint.y()));

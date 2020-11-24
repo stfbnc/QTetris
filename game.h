@@ -30,8 +30,11 @@ public slots:
     void updateGame();
 private:
     void newPiece();
+    void deletePiece();
     bool canMove(MOVES direction);
 
+    bool running;
+    bool moving;
     int speed;
     QTimer *timer;
     TetrisPiece *currentPiece;
