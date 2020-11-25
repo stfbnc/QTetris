@@ -1,9 +1,11 @@
 #include "game.h"
 
-Game::Game(int s, DataManager *dm) :
+Game::Game(int s, DataManager *dm, int nGames) :
     speed(s),
-    dataManager(dm)
+    dataManager(dm),
+    maxGames(nGames)
 {
+    gameCount = 0;
     running = false;
     moving = false;
 
@@ -78,6 +80,7 @@ void Game::stopGame()
 void Game::startGame()
 {
     running = true;
+    gameCount += 1;
     timer->start(speed);
 }
 
@@ -92,8 +95,25 @@ void Game::updateGame()
         }
         else
         {
+            bool gameLost = true;
+            for(QPoint p : currentPiece->getPieceCoords())
+            {
+                if(p.y() >= 0)
+                {
+                    gameLost = false;
+                    break;
+                }
+            }
+            if(gameLost)
+            {
+                gameCount += 1;
+                dataManager->initializeMap();
+            }
             deletePiece();
-            newPiece();
+            if(gameCount <= maxGames)
+                newPiece();
+            else
+                stopGame();
         }
     }
 }
@@ -124,8 +144,11 @@ bool Game::canMove(MOVES direction)
                 return false;
             for(QPoint p : temporaryUpdatedPiece->getPieceCoords())
             {
-                if(map[std::pair<int, int>(p.x(), p.y())] != Qt::transparent)
-                    return false;
+                if(p.y() >= 0)
+                {
+                    if(map[std::pair<int, int>(p.x(), p.y())] != Qt::transparent)
+                        return false;
+                }
             }
             return true;
         case RIGHT:
@@ -134,8 +157,11 @@ bool Game::canMove(MOVES direction)
                 return false;
             for(QPoint p : temporaryUpdatedPiece->getPieceCoords())
             {
-                if(map[std::pair<int, int>(p.x(), p.y())] != Qt::transparent)
-                    return false;
+                if(p.y() >= 0)
+                {
+                    if(map[std::pair<int, int>(p.x(), p.y())] != Qt::transparent)
+                        return false;
+                }
             }
             return true;
         case LEFT:
@@ -144,8 +170,11 @@ bool Game::canMove(MOVES direction)
                 return false;
             for(QPoint p : temporaryUpdatedPiece->getPieceCoords())
             {
-                if(map[std::pair<int, int>(p.x(), p.y())] != Qt::transparent)
-                    return false;
+                if(p.y() >= 0)
+                {
+                    if(map[std::pair<int, int>(p.x(), p.y())] != Qt::transparent)
+                        return false;
+                }
             }
             return true;
         case DOWN_FAST:
@@ -160,8 +189,11 @@ bool Game::canMove(MOVES direction)
                 return false;
             for(QPoint p : temporaryUpdatedPiece->getPieceCoords())
             {
-                if(map[std::pair<int, int>(p.x(), p.y())] != Qt::transparent)
-                    return false;
+                if(p.y() >= 0)
+                {
+                    if(map[std::pair<int, int>(p.x(), p.y())] != Qt::transparent)
+                        return false;
+                }
             }
             return true;
     }

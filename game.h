@@ -19,7 +19,7 @@ public:
         ROTATE
     };
 
-    Game(int s, DataManager *dm);
+    Game(int s, DataManager *dm, int nGames);
     ~Game();
     void move(MOVES direction);
 public slots:
@@ -33,6 +33,8 @@ private:
     void deletePiece();
     bool canMove(MOVES direction);
 
+    int maxGames;
+    int gameCount;
     bool running;
     bool moving;
     int speed;

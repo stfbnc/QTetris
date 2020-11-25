@@ -4,7 +4,7 @@ TetrisPiece::TetrisPiece(QColor color, QObject *parent) :
     m_color(color),
     QObject(parent)
 {
-    startPoint = QPoint(((MAXW / STEP) / 2) * STEP, 0);
+    startPoint = QPoint(((MAXW / STEP) / 2) * STEP, -2 * STEP);
 }
 
 TetrisPiece::TetrisPiece(const TetrisPiece &tp)

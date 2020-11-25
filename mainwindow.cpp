@@ -8,8 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     gameData1 = new DataManager();
     //gameData2 = new DataManager();
-    game1 = new Game(NORMAL, gameData1);
-    //game2 = new Game(NORMAL, gameData2);
+    game1 = new Game(NORMAL, gameData1, 3);
+    //game2 = new Game(NORMAL, gameData2, 3);
     ui->frame->setDataManager(gameData1);
 
     connect(ui->actionVerySlow, &QAction::triggered, this, [&](){ emit speedChanged(VERY_SLOW); });

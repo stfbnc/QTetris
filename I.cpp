@@ -16,10 +16,10 @@ I* I::clone() const
 
 void I::initialize()
 {
+    m_pieceCoords.push_back(QPoint(startPoint.x(), startPoint.y() - 2 * STEP));
+    m_pieceCoords.push_back(QPoint(startPoint.x(), startPoint.y() - STEP));
     m_pieceCoords.push_back(QPoint(startPoint.x(), startPoint.y()));
     m_pieceCoords.push_back(QPoint(startPoint.x(), startPoint.y() + STEP));
-    m_pieceCoords.push_back(QPoint(startPoint.x(), startPoint.y() + 2 * STEP));
-    m_pieceCoords.push_back(QPoint(startPoint.x(), startPoint.y() + 3 * STEP));
 }
 
 void I::rotate()

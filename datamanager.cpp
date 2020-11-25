@@ -26,7 +26,10 @@ void DataManager::setPieceCoords(std::vector<QPoint> coords, bool isNew)
     if(isNew)
     {
         for(QPoint p : pieceCoords)
-            boardMap[std::pair<int, int>(p.x(), p.y())] = color;
+        {
+            if(p.y() >= 0)
+                boardMap[std::pair<int, int>(p.x(), p.y())] = color;
+        }
     }
     pieceCoords = coords;
 
