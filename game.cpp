@@ -46,10 +46,8 @@ void Game::move(MOVES direction)
                 case DOWN_FAST:
                     running = false;
                     while(canMove(DOWN))
-                    {
                         currentPiece->moveDown();
-                        dataManager->setPieceCoords(currentPiece->getPieceCoords());
-                    }
+                    dataManager->setPieceCoords(currentPiece->getPieceCoords());
                     running = true;
                     break;
                 case DOWN:
@@ -86,8 +84,8 @@ void Game::startGame()
 
 void Game::updateGame()
 {
-    if(!moving)
-    {
+    //if(!moving)
+    //{
         if(canMove(DOWN))
         {
             currentPiece->moveDown();
@@ -111,17 +109,22 @@ void Game::updateGame()
             }
             deletePiece();
             if(gameCount <= maxGames)
+            {
+                dataManager->addPieceToBoard();
                 newPiece();
+            }
             else
+            {
                 stopGame();
+            }
         }
-    }
+    //}
 }
 
 void Game::newPiece()
 {
     currentPiece = PieceFactory::getRandomPiece();
-    dataManager->setPieceCoords(currentPiece->getPieceCoords(), true);
+    dataManager->setPieceCoords(currentPiece->getPieceCoords());
     dataManager->setPieceColor(currentPiece->getColor());
 }
 

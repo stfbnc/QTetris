@@ -1,6 +1,7 @@
 #ifndef DATAMANAGER_H
 #define DATAMANAGER_H
 
+#include <iostream>
 #include <QObject>
 #include <QColor>
 #include <QPoint>
@@ -14,7 +15,8 @@ public:
     ~DataManager();
     void setPieceColor(QColor c);
     const QColor getPieceColor();
-    void setPieceCoords(std::vector<QPoint> coords, bool isNew=false);
+    void setPieceCoords(std::vector<QPoint> coords);
+    void addPieceToBoard();
     const std::vector<QPoint> getPieceCoords();
     void setBorders(int left, int right, int bottom);
     int getRightBorder();
@@ -25,6 +27,8 @@ public:
 signals:
     void updateBoard();
 private:
+    void removeLine(int line);
+
     int leftBorder = 0;
     int rightBorder = 0;
     int bottomBorder = 0;
