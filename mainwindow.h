@@ -26,16 +26,23 @@ signals:
     void stopGame();
     void resumeGame();
     void speedChanged(int speed);
-private:
+private slots:
     void startGame();
+    void resetGame();
+private:
+    void createConnections();
+    void initializeGame();
     void closeEvent(QCloseEvent *event);
     void keyPressEvent(QKeyEvent *event);
 
     Ui::MainWindow *ui;
+    QThread* thread1;
+    QThread* thread2;
     Game *game1;
     Game *game2;
     DataManager *gameData1;
     DataManager *gameData2;
+    bool running;
 
     enum SPEED
     {

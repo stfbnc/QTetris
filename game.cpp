@@ -84,8 +84,8 @@ void Game::startGame()
 
 void Game::updateGame()
 {
-    //if(!moving)
-    //{
+    if(!moving)
+    {
         if(canMove(DOWN))
         {
             currentPiece->moveDown();
@@ -118,7 +118,7 @@ void Game::updateGame()
                 stopGame();
             }
         }
-    //}
+    }
 }
 
 void Game::newPiece()
