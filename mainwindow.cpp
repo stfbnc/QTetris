@@ -91,6 +91,10 @@ void MainWindow::createConnections()
     connect(this, SIGNAL(stopGame()), game2, SLOT(stopGame()), Qt::QueuedConnection);
     connect(this, SIGNAL(resumeGame()), game1, SLOT(resumeGame()), Qt::QueuedConnection);
     connect(this, SIGNAL(resumeGame()), game2, SLOT(resumeGame()), Qt::QueuedConnection);
+    connect(gameData1, SIGNAL(swapLines(std::map<std::pair<int, int>, QColor>, int)),
+            gameData2, SLOT(addSwapLines(std::map<std::pair<int, int>, QColor>, int)));
+    connect(gameData2, SIGNAL(swapLines(std::map<std::pair<int, int>, QColor>, int)),
+            gameData1, SLOT(addSwapLines(std::map<std::pair<int, int>, QColor>, int)));
 }
 
 void MainWindow::initializeGame()

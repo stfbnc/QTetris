@@ -8,7 +8,6 @@ DataManager::DataManager()
 
 DataManager::~DataManager()
 {
-
 }
 
 void DataManager::setPieceColor(QColor c)
@@ -29,11 +28,15 @@ void DataManager::setPieceCoords(std::vector<QPoint> coords)
 
 void DataManager::addPieceToBoard()
 {
+    swapPieces.clear();
+    int nFullLines = 0;
+
     for(QPoint p : pieceCoords)
     {
         if(p.y() >= 0)
             boardMap[std::pair<int, int>(p.x(), p.y())] = color;
     }
+
     for(int i = 0; i < MAXH; i += STEP)
     {
         bool lineFull = true;
@@ -46,7 +49,18 @@ void DataManager::addPieceToBoard()
             }
         }
         if(lineFull)
+        {
+            addLineToSwap(i, nFullLines);
             removeLine(i);
+            nFullLines++;
+        }
+    }
+    emit updateBoard();
+
+    if(nFullLines > 1)
+    {
+        qRegisterMetaType<std::map<std::pair<int, int>, QColor>>("std::map<std::pair<int, int>, QColor>");
+        emit swapLines(swapPieces, nFullLines);
     }
 }
 
@@ -93,6 +107,26 @@ const std::map<std::pair<int, int>, QColor> DataManager::getBoardMap()
     return boardMap;
 }
 
+void DataManager::addSwapLines(std::map<std::pair<int, int>, QColor> swap, int nSwap)
+{
+    for(QPoint &p : pieceCoords)
+        p -= QPoint(0, (nSwap * STEP));
+
+    for(int j = 0; j < MAXW; j += STEP)
+    {
+        for(int i = (nSwap - 1) * STEP; i < MAXH; i += STEP)
+            boardMap[std::pair<int, int>(j, i - (nSwap - 1) * STEP)] = boardMap[std::pair<int, int>(j, i)];
+    }
+
+    for(int i = 0; i < nSwap; i++)
+    {
+        for(int j = 0; j < MAXW; j += STEP)
+            boardMap[std::pair<int, int>(j, MAXH - (nSwap - i) * STEP)] = swap[std::pair<int, int>(j, MAXH - (i + 1) * STEP)];
+    }
+
+    emit updateBoard();
+}
+
 void DataManager::removeLine(int line)
 {
     for(int j = 0; j < MAXW; j += STEP)
@@ -100,5 +134,23 @@ void DataManager::removeLine(int line)
         for(int i = line; i >= STEP; i -= STEP)
             boardMap[std::pair<int, int>(j, i)] = boardMap[std::pair<int, int>(j, i - STEP)];
         boardMap[std::pair<int, int>(j, 0)] = Qt::transparent;
+    }
+}
+
+void DataManager::addLineToSwap(int line, int lineIdx)
+{
+    std::vector<int> lastPieceInLine = std::vector<int>();
+    for(QPoint p : pieceCoords)
+    {
+        if(p.y() == line)
+            lastPieceInLine.push_back(p.x());
+    }
+
+    for(int j = 0; j < MAXW; j += STEP)
+    {
+        if(std::find(lastPieceInLine.begin(), lastPieceInLine.end(), j) == lastPieceInLine.end())
+            swapPieces[std::pair<int, int>(j, MAXH - (lineIdx + 1) * STEP)] = boardMap[std::pair<int, int>(j, line)];
+        else
+            swapPieces[std::pair<int, int>(j, MAXH - (lineIdx + 1) * STEP)] = Qt::transparent;
     }
 }

@@ -26,8 +26,12 @@ public:
     const std::map<std::pair<int, int>, QColor> getBoardMap();
 signals:
     void updateBoard();
+    void swapLines(std::map<std::pair<int, int>, QColor>, int);
+public slots:
+    void addSwapLines(std::map<std::pair<int, int>, QColor> swap, int nSwap);
 private:
     void removeLine(int line);
+    void addLineToSwap(int line, int lineIdx);
 
     int leftBorder = 0;
     int rightBorder = 0;
@@ -35,6 +39,7 @@ private:
     QColor color;
     std::vector<QPoint> pieceCoords = std::vector<QPoint>();
     std::map<std::pair<int, int>, QColor> boardMap = std::map<std::pair<int, int>, QColor>();
+    std::map<std::pair<int, int>, QColor> swapPieces = std::map<std::pair<int, int>, QColor>();
 };
 
 #endif // DATAMANAGER_H
