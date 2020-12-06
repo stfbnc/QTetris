@@ -53,15 +53,21 @@ void DataManager::addPieceToBoard()
             addLineToSwap(i, nFullLines);
             removeLine(i);
             nFullLines++;
+            lines++;
+            points += FULL_LINE_POINTS;
         }
     }
     emit updateBoard();
 
     if(nFullLines > 1)
     {
+        swaps += nFullLines;
+        points += (nFullLines * SWAP_LINE_POINTS);
         qRegisterMetaType<std::map<std::pair<int, int>, QColor>>("std::map<std::pair<int, int>, QColor>");
         emit swapLines(swapPieces, nFullLines);
     }
+
+    emit updatePoints(points, lines, swaps);
 }
 
 const std::vector<QPoint> DataManager::getPieceCoords()
@@ -102,20 +108,39 @@ void DataManager::initializeMap()
     }
 }
 
+void DataManager::resetScores()
+{
+    points = 0;
+    lines = 0;
+    swaps = 0;
+    games = 1;
+}
+
 const std::map<std::pair<int, int>, QColor> DataManager::getBoardMap()
 {
     return boardMap;
 }
 
+void DataManager::addPoints(int p)
+{
+    points += p;
+}
+
+void DataManager::increaseGameCount()
+{
+    games++;
+    emit gameCount(games);
+}
+
 void DataManager::addSwapLines(std::map<std::pair<int, int>, QColor> swap, int nSwap)
 {
     for(QPoint &p : pieceCoords)
-        p -= QPoint(0, (nSwap * STEP));
+        p -= QPoint(0, nSwap * STEP);
 
     for(int j = 0; j < MAXW; j += STEP)
     {
-        for(int i = (nSwap - 1) * STEP; i < MAXH; i += STEP)
-            boardMap[std::pair<int, int>(j, i - (nSwap - 1) * STEP)] = boardMap[std::pair<int, int>(j, i)];
+        for(int i = nSwap * STEP; i < MAXH; i += STEP)
+            boardMap[std::pair<int, int>(j, i - nSwap * STEP)] = boardMap[std::pair<int, int>(j, i)];
     }
 
     for(int i = 0; i < nSwap; i++)

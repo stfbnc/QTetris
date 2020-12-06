@@ -23,10 +23,15 @@ public:
     int getLeftBorder();
     int getBottomBorder();
     void initializeMap();
+    void resetScores();
     const std::map<std::pair<int, int>, QColor> getBoardMap();
+    void addPoints(int p);
+    void increaseGameCount();
 signals:
     void updateBoard();
     void swapLines(std::map<std::pair<int, int>, QColor>, int);
+    void gameCount(int);
+    void updatePoints(int, int, int);
 public slots:
     void addSwapLines(std::map<std::pair<int, int>, QColor> swap, int nSwap);
 private:
@@ -36,6 +41,10 @@ private:
     int leftBorder = 0;
     int rightBorder = 0;
     int bottomBorder = 0;
+    int points = 0;
+    int lines = 0;
+    int swaps = 0;
+    int games = 1;
     QColor color;
     std::vector<QPoint> pieceCoords = std::vector<QPoint>();
     std::map<std::pair<int, int>, QColor> boardMap = std::map<std::pair<int, int>, QColor>();

@@ -25,6 +25,7 @@ public:
 signals:
     void stopGame();
     void resumeGame();
+    void playAgain();
     void speedChanged(int speed);
 private slots:
     void startGame();
@@ -32,6 +33,7 @@ private slots:
 private:
     void createConnections();
     void initializeGame();
+    void setStartingPoints();
     void closeEvent(QCloseEvent *event);
     void keyPressEvent(QKeyEvent *event);
 
@@ -43,6 +45,8 @@ private:
     DataManager *gameData1;
     DataManager *gameData2;
     bool running;
+    bool isFirstGame;
+    int nGames;
 
     enum SPEED
     {

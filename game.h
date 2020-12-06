@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
+#include <QThread>
 #include "piecefactory.h"
 #include "datamanager.h"
 
@@ -25,9 +26,12 @@ public:
 public slots:
     void setSpeed(int speed);
     void resumeGame();
+    void playAgain();
     void stopGame();
     void startGame();
     void updateGame();
+signals:
+    void endGame();
 private:
     void newPiece();
     void deletePiece();

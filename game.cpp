@@ -1,11 +1,11 @@
 #include "game.h"
 
 Game::Game(int s, DataManager *dm, int nGames) :
+    maxGames(nGames),
     speed(s),
-    dataManager(dm),
-    maxGames(nGames)
+    dataManager(dm)
 {
-    gameCount = 0;
+    gameCount = 1;
     running = false;
     moving = false;
 
@@ -14,12 +14,15 @@ Game::Game(int s, DataManager *dm, int nGames) :
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     std::rand();
-    newPiece();
+    //newPiece();
 }
 
 Game::~Game()
 {
     delete timer;
+
+    if(currentPiece != nullptr)
+        delete currentPiece;
 }
 
 void Game::move(MOVES direction)
@@ -48,6 +51,7 @@ void Game::move(MOVES direction)
                     while(canMove(DOWN))
                         currentPiece->moveDown();
                     dataManager->setPieceCoords(currentPiece->getPieceCoords());
+                    dataManager->addPoints(PIECE_DROPPED_POINTS);
                     running = true;
                     break;
                 case DOWN:
@@ -66,7 +70,14 @@ void Game::setSpeed(int speed)
 void Game::resumeGame()
 {
     running = true;
-    timer->start();
+    timer->start(speed);
+}
+
+void Game::playAgain()
+{
+    running = true;
+    newPiece();
+    timer->start(speed);
 }
 
 void Game::stopGame()
@@ -78,7 +89,7 @@ void Game::stopGame()
 void Game::startGame()
 {
     running = true;
-    gameCount += 1;
+    newPiece();
     timer->start(speed);
 }
 
@@ -102,21 +113,46 @@ void Game::updateGame()
                     break;
                 }
             }
+
             if(gameLost)
             {
-                gameCount += 1;
-                dataManager->initializeMap();
+                if(gameCount < maxGames)
+                {
+                    dataManager->initializeMap();
+                    gameCount++;
+                    dataManager->increaseGameCount();
+                    deletePiece();
+                    newPiece();
+                }
+                else
+                {
+                    gameCount = 1;
+                    stopGame();
+                    deletePiece();
+                    emit endGame();
+                }
             }
-            deletePiece();
-            if(gameCount <= maxGames)
+            else
             {
+                dataManager->addPoints(PIECE_POINTS);
                 dataManager->addPieceToBoard();
+                deletePiece();
+                newPiece();
+            }
+
+            /*if(gameCount <= maxGames)
+            {
+                dataManager->addPoints(PIECE_POINTS);
+                dataManager->addPieceToBoard();
+                deletePiece();
                 newPiece();
             }
             else
             {
+                gameCount = 0;
                 stopGame();
-            }
+                emit endGame();
+            }*/
         }
     }
 }
