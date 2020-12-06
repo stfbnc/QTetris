@@ -14,7 +14,6 @@ Game::Game(int s, DataManager *dm, int nGames) :
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     std::rand();
-    //newPiece();
 }
 
 Game::~Game()
@@ -139,20 +138,6 @@ void Game::updateGame()
                 deletePiece();
                 newPiece();
             }
-
-            /*if(gameCount <= maxGames)
-            {
-                dataManager->addPoints(PIECE_POINTS);
-                dataManager->addPieceToBoard();
-                deletePiece();
-                newPiece();
-            }
-            else
-            {
-                gameCount = 0;
-                stopGame();
-                emit endGame();
-            }*/
         }
     }
 }

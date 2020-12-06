@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPalette>
 #include <QKeyEvent>
 #include <QThread>
 #include "board.h"
@@ -31,6 +32,7 @@ private slots:
     void startGame();
     void resetGame();
 private:
+    void setDarkTheme();
     void createConnections();
     void initializeGame();
     void setStartingPoints();

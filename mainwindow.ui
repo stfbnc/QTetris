@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>840</width>
-    <height>603</height>
+    <height>580</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>840</width>
-    <height>603</height>
+    <height>580</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>840</width>
-    <height>603</height>
+    <height>580</height>
    </size>
   </property>
   <property name="font">
@@ -41,16 +41,16 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>9</y>
+      <y>10</y>
       <width>260</width>
       <height>540</height>
      </rect>
     </property>
     <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+     <enum>QFrame::Box</enum>
     </property>
     <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+     <enum>QFrame::Sunken</enum>
     </property>
    </widget>
    <widget class="Board" name="frame_2">
@@ -63,10 +63,10 @@
      </rect>
     </property>
     <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+     <enum>QFrame::Box</enum>
     </property>
     <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+     <enum>QFrame::Sunken</enum>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -101,6 +101,54 @@
      </item>
     </layout>
    </widget>
+   <widget class="QFrame" name="frame_5">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>170</y>
+      <width>201</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_4">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>10</y>
+      <width>201</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_3">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>460</y>
+      <width>281</width>
+      <height>90</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+   </widget>
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
@@ -110,9 +158,12 @@
       <height>71</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
+    <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0">
      <item>
       <widget class="QLabel" name="label_game">
+       <property name="styleSheet">
+        <string notr="true">font: bold large &quot;Times New Roman&quot;</string>
+       </property>
        <property name="text">
         <string>Game</string>
        </property>
@@ -161,14 +212,17 @@
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>10</y>
+      <y>20</y>
       <width>181</width>
-      <height>121</height>
+      <height>131</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="1,4">
      <item>
       <widget class="QLabel" name="label_7">
+       <property name="styleSheet">
+        <string notr="true">font: bold large &quot;Times New Roman&quot;</string>
+       </property>
        <property name="text">
         <string>Player 1</string>
        </property>
@@ -246,7 +300,7 @@
     <property name="geometry">
      <rect>
       <x>370</x>
-      <y>160</y>
+      <y>180</y>
       <width>181</width>
       <height>121</height>
      </rect>
@@ -254,6 +308,9 @@
     <layout class="QVBoxLayout" name="verticalLayout_7" stretch="1,4">
      <item>
       <widget class="QLabel" name="label_8">
+       <property name="styleSheet">
+        <string notr="true">font: bold large &quot;Times New Roman&quot;</string>
+       </property>
        <property name="text">
         <string>Player 2</string>
        </property>
@@ -361,7 +418,6 @@
    </widget>
    <addaction name="menuSettings"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionVerySlow">
    <property name="text">
     <string>Very slow</string>

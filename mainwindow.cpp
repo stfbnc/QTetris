@@ -13,6 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setDarkTheme();
+    setWindowTitle("Mattoncini");
+
     running = false;
     isFirstGame = true;
     nGames = DEFAULT_GAMES;
@@ -84,24 +87,35 @@ void MainWindow::startGame()
 
 void MainWindow::resetGame()
 {
-    //thread1->quit();
-    //thread1->wait();
-    //thread2->quit();
-    //thread2->wait();
+    running = false;
+    isFirstGame = false;
 
-    //if(thread1->isFinished() && thread2->isFinished())
-    //{
-    //    delete gameData1;
-    //    gameData1 = nullptr;
-    //    delete gameData2;
-    //    gameData2 = nullptr;
+    this->ui->startButton->setEnabled(true);
+    this->ui->pauseButton->setEnabled(false);
+}
 
-        running = false;
-        isFirstGame = false;
+void MainWindow::setDarkTheme()
+{
+    QPalette darkPalette = QPalette();
+    darkPalette.setColor(QPalette::Window, QColor(53, 53, 53));
+    darkPalette.setColor(QPalette::WindowText, Qt::white);
+    darkPalette.setColor(QPalette::Base, QColor(25, 25, 25));
+    darkPalette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
+    darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
+    darkPalette.setColor(QPalette::ToolTipText, Qt::white);
+    darkPalette.setColor(QPalette::Text, Qt::white);
+    darkPalette.setColor(QPalette::Button, QColor(53, 53, 53));
+    darkPalette.setColor(QPalette::ButtonText, Qt::white);
+    darkPalette.setColor(QPalette::BrightText, Qt::red);
+    darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+    darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+    darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+    darkPalette.setColor(QPalette::Disabled, QPalette::Button, QColor(123, 123, 123));
+    darkPalette.setColor(QPalette::Disabled, QPalette::Light, QColor(123, 123, 123, 0));
+    darkPalette.setColor(QPalette::Disabled, QPalette::Text, QColor(123, 123, 123));
 
-        this->ui->startButton->setEnabled(true);
-        this->ui->pauseButton->setEnabled(false);
-    //}
+    qApp->setPalette(darkPalette);
+    qApp->setStyle("Fusion");
 }
 
 void MainWindow::createConnections()
