@@ -23,6 +23,7 @@ public:
     Game(int s, DataManager *dm, int nGames);
     ~Game();
     void move(MOVES direction);
+    void setGames(int games);
 public slots:
     void setSpeed(int speed);
     void resumeGame();

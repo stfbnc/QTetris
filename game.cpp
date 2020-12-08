@@ -61,8 +61,14 @@ void Game::move(MOVES direction)
     moving = false;
 }
 
+void Game::setGames(int games)
+{
+    maxGames = games;
+}
+
 void Game::setSpeed(int speed)
 {
+    this->speed = speed;
     timer->setInterval(speed);
 }
 

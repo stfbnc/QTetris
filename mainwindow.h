@@ -5,9 +5,11 @@
 #include <QPalette>
 #include <QKeyEvent>
 #include <QThread>
+#include <QInputDialog>
 #include "board.h"
 #include "datamanager.h"
 #include "game.h"
+#include "gamecontrols.h"
 
 #include <QDebug>
 
@@ -29,7 +31,12 @@ signals:
     void playAgain();
     void speedChanged(int speed);
 private slots:
+    void openControls();
+    void setControls(QKeySequence r1, QKeySequence l1, QKeySequence d1, QKeySequence rot1,
+                     QKeySequence r2, QKeySequence l2, QKeySequence d2, QKeySequence rot2);
+    void setGames();
     void startGame();
+    void pauseGame();
     void resetGame();
 private:
     void setDarkTheme();
@@ -42,13 +49,21 @@ private:
     Ui::MainWindow *ui;
     QThread* thread1;
     QThread* thread2;
-    Game *game1;
-    Game *game2;
-    DataManager *gameData1;
-    DataManager *gameData2;
+    Game *game1 = nullptr;
+    Game *game2 = nullptr;
+    DataManager *gameData1 = nullptr;
+    DataManager *gameData2 = nullptr;
     bool running;
     bool isFirstGame;
     int nGames;
+    QKeySequence right1 = QKeySequence(Qt::Key_D);
+    QKeySequence left1 = QKeySequence(Qt::Key_A);
+    QKeySequence down1 = QKeySequence(Qt::Key_X);
+    QKeySequence rotate1 = QKeySequence(Qt::Key_S);
+    QKeySequence right2 = QKeySequence(Qt::Key_Right);
+    QKeySequence left2 = QKeySequence(Qt::Key_Left);
+    QKeySequence down2 = QKeySequence(Qt::Key_Down);
+    QKeySequence rotate2 = QKeySequence(Qt::Key_Up);
 
     enum SPEED
     {

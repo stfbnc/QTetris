@@ -20,6 +20,7 @@ SOURCES += \
     board.cpp \
     datamanager.cpp \
     game.cpp \
+    gamecontrols.cpp \
     main.cpp \
     mainwindow.cpp \
     piecefactory.cpp \
@@ -37,9 +38,11 @@ HEADERS += \
     datamanager.h \
     defines.h \
     game.h \
+    gamecontrols.h \
     mainwindow.h \
     piecefactory.h \
     tetrispiece.h
 
 FORMS += \
+    gamecontrols.ui \
     mainwindow.ui

@@ -2,8 +2,6 @@
 #include "ui_mainwindow.h"
 
 /* TODO:
- * set number of games (if running, only > current games and < max games. If not running, < max games. Signal games of the change)
- * conditional opening of menus
  * graphics
  */
 
@@ -28,12 +26,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionFast, &QAction::triggered, this, [&](){ emit speedChanged(FAST); });
     connect(ui->actionVeryFast, &QAction::triggered, this, [&](){ emit speedChanged(VERY_FAST); });
 
+    connect(ui->actionControls, SIGNAL(triggered()), this, SLOT(openControls()));
+    connect(ui->actionGames, SIGNAL(triggered()), this, SLOT(setGames()));
+
     connect(ui->startButton, SIGNAL(clicked()), this, SLOT(startGame()));
-    connect(ui->pauseButton, &QPushButton::clicked, this, [&](){
-        ui->startButton->setEnabled(true);
-        ui->pauseButton->setEnabled(false);
-        emit stopGame();
-    });
+    connect(ui->pauseButton, SIGNAL(clicked()), this, SLOT(pauseGame()));
 }
 
 MainWindow::~MainWindow()
@@ -55,10 +52,53 @@ MainWindow::~MainWindow()
     }
 }
 
+void MainWindow::openControls()
+{
+    GameControls *ctrlWin = new GameControls(right1, left1, down1, rotate1,
+                                             right2, left2, down2, rotate2);
+    ctrlWin->setAttribute(Qt::WA_DeleteOnClose);
+    connect(ctrlWin, SIGNAL(okPressed(QKeySequence, QKeySequence, QKeySequence, QKeySequence,
+                                      QKeySequence, QKeySequence, QKeySequence, QKeySequence)),
+            this, SLOT(setControls(QKeySequence, QKeySequence, QKeySequence, QKeySequence,
+                                   QKeySequence, QKeySequence, QKeySequence, QKeySequence)));
+    ctrlWin->show();
+}
+
+void MainWindow::setControls(QKeySequence r1, QKeySequence l1, QKeySequence d1, QKeySequence rot1,
+                             QKeySequence r2, QKeySequence l2, QKeySequence d2, QKeySequence rot2)
+{
+    right1 = r1;
+    left1 = l1;
+    down1 = d1;
+    rotate1 = rot1;
+    right2 = r2;
+    left2 = l2;
+    down2 = d2;
+    rotate2 = rot2;
+}
+
+void MainWindow::setGames()
+{
+    bool ok;
+    int g = QInputDialog::getInt(this, "Set games", "Games:", nGames, 1, MAX_GAMES, 1, &ok);
+    if(ok)
+    {
+        nGames = g;
+        if((game1 != nullptr) && (game2 != nullptr))
+        {
+            game1->setGames(nGames);
+            game2->setGames(nGames);
+        }
+    }
+}
+
 void MainWindow::startGame()
 {
-    this->ui->startButton->setEnabled(false);
-    this->ui->pauseButton->setEnabled(true);
+    ui->actionGames->setEnabled(false);
+    ui->actionControls->setEnabled(false);
+
+    ui->startButton->setEnabled(false);
+    ui->pauseButton->setEnabled(true);
 
     if(running)
     {
@@ -85,13 +125,27 @@ void MainWindow::startGame()
     }
 }
 
+void MainWindow::pauseGame()
+{
+    ui->actionGames->setEnabled(false);
+    ui->actionControls->setEnabled(true);
+
+    ui->startButton->setEnabled(true);
+    ui->pauseButton->setEnabled(false);
+
+    emit stopGame();
+}
+
 void MainWindow::resetGame()
 {
     running = false;
     isFirstGame = false;
 
-    this->ui->startButton->setEnabled(true);
-    this->ui->pauseButton->setEnabled(false);
+    ui->actionGames->setEnabled(true);
+    ui->actionControls->setEnabled(true);
+
+    ui->startButton->setEnabled(true);
+    ui->pauseButton->setEnabled(false);
 }
 
 void MainWindow::setDarkTheme()
@@ -137,20 +191,20 @@ void MainWindow::createConnections()
     connect(gameData2, SIGNAL(swapLines(std::map<std::pair<int, int>, QColor>, int)),
             gameData1, SLOT(addSwapLines(std::map<std::pair<int, int>, QColor>, int)));
     connect(gameData1, &DataManager::gameCount, this, [&](int count){
-        this->ui->game_count_1->setText(QString::number(count));
+        ui->game_count_1->setText(QString::number(count));
     });
     connect(gameData2, &DataManager::gameCount, this, [&](int count){
-        this->ui->game_count_2->setText(QString::number(count));
+        ui->game_count_2->setText(QString::number(count));
     });
     connect(gameData1, &DataManager::updatePoints, this, [&](int p, int l, int s){
-        this->ui->player_1_points->setText(QString::number(p));
-        this->ui->player_1_lines->setText(QString::number(l));
-        this->ui->player_1_swap->setText(QString::number(s));
+        ui->player_1_points->setText(QString::number(p));
+        ui->player_1_lines->setText(QString::number(l));
+        ui->player_1_swap->setText(QString::number(s));
     });
     connect(gameData2, &DataManager::updatePoints, this, [&](int p, int l, int s){
-        this->ui->player_2_points->setText(QString::number(p));
-        this->ui->player_2_lines->setText(QString::number(l));
-        this->ui->player_2_swap->setText(QString::number(s));
+        ui->player_2_points->setText(QString::number(p));
+        ui->player_2_lines->setText(QString::number(l));
+        ui->player_2_swap->setText(QString::number(s));
     });
 
     connect(thread1, SIGNAL(started()), game1, SLOT(startGame()));
@@ -183,14 +237,14 @@ void MainWindow::initializeGame()
 
 void MainWindow::setStartingPoints()
 {
-    this->ui->game_count_1->setText("1");
-    this->ui->game_count_2->setText("1");
-    this->ui->player_1_points->setText("0");
-    this->ui->player_1_lines->setText("0");
-    this->ui->player_1_swap->setText("0");
-    this->ui->player_2_points->setText("0");
-    this->ui->player_2_lines->setText("0");
-    this->ui->player_2_swap->setText("0");
+    ui->game_count_1->setText("1");
+    ui->game_count_2->setText("1");
+    ui->player_1_points->setText("0");
+    ui->player_1_lines->setText("0");
+    ui->player_1_swap->setText("0");
+    ui->player_2_points->setText("0");
+    ui->player_2_lines->setText("0");
+    ui->player_2_swap->setText("0");
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -203,23 +257,26 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(running)
     {
-        event->accept();
+        if(!event->isAutoRepeat())
+        {
+            event->accept();
 
-        if(event->key() == Qt::Key_D)
-            game1->move(Game::RIGHT);
-        else if(event->key() == Qt::Key_A)
-            game1->move(Game::LEFT);
-        else if(event->key() == Qt::Key_S)
-            game1->move(Game::ROTATE);
-        else if(event->key() == Qt::Key_X)
-            game1->move(Game::DOWN_FAST);
-        else if(event->key() == Qt::Key_Right)
-            game2->move(Game::RIGHT);
-        else if(event->key() == Qt::Key_Left)
-            game2->move(Game::LEFT);
-        else if(event->key() == Qt::Key_Up)
-            game2->move(Game::ROTATE);
-        else if(event->key() == Qt::Key_Down)
-            game2->move(Game::DOWN_FAST);
+            if(event->key() == right1[0])
+                game1->move(Game::RIGHT);
+            else if(event->key() == left1[0])
+                game1->move(Game::LEFT);
+            else if(event->key() == rotate1[0])
+                game1->move(Game::ROTATE);
+            else if(event->key() == down1[0])
+                game1->move(Game::DOWN_FAST);
+            else if(event->key() == right2[0])
+                game2->move(Game::RIGHT);
+            else if(event->key() == left2[0])
+                game2->move(Game::LEFT);
+            else if(event->key() == rotate2[0])
+                game2->move(Game::ROTATE);
+            else if(event->key() == down2[0])
+                game2->move(Game::DOWN_FAST);
+        }
     }
 }
