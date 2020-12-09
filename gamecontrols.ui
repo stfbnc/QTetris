@@ -31,10 +31,16 @@
     <height>260</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <family>Dyuthi</family>
+    <pointsize>14</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Set controls</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -45,7 +51,7 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,1,1,1">
     <property name="spacing">
-     <number>-1</number>
+     <number>6</number>
     </property>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1">
@@ -58,6 +64,14 @@
       </item>
       <item>
        <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <family>Dyuthi</family>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Player 1</string>
         </property>
@@ -68,6 +82,14 @@
       </item>
       <item>
        <widget class="QLabel" name="label_3">
+        <property name="font">
+         <font>
+          <family>Dyuthi</family>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Player 2</string>
         </property>
@@ -82,6 +104,12 @@
      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1,1">
       <item>
        <widget class="QLabel" name="label_4">
+        <property name="font">
+         <font>
+          <family>Dyuthi</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Move left</string>
         </property>
@@ -107,6 +135,12 @@
      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1,1">
       <item>
        <widget class="QLabel" name="label_5">
+        <property name="font">
+         <font>
+          <family>Dyuthi</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Move right</string>
         </property>
@@ -132,6 +166,12 @@
      <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1,1">
       <item>
        <widget class="QLabel" name="label_6">
+        <property name="font">
+         <font>
+          <family>Dyuthi</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Rotate</string>
         </property>
@@ -157,6 +197,12 @@
      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,1,1">
       <item>
        <widget class="QLabel" name="label_7">
+        <property name="font">
+         <font>
+          <family>Dyuthi</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Drop down</string>
         </property>
@@ -180,7 +226,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -192,6 +238,12 @@
    <layout class="QHBoxLayout" name="horizontalLayout_6">
     <item>
      <widget class="QPushButton" name="cancelButton">
+      <property name="font">
+       <font>
+        <family>Dyuthi</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Cancel</string>
       </property>
@@ -199,6 +251,12 @@
     </item>
     <item>
      <widget class="QPushButton" name="okButton">
+      <property name="font">
+       <font>
+        <family>Dyuthi</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>OK</string>
       </property>

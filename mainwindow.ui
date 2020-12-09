@@ -24,6 +24,8 @@
   </property>
   <property name="font">
    <font>
+    <family>Dyuthi</family>
+    <pointsize>14</pointsize>
     <kerning>true</kerning>
    </font>
   </property>
@@ -81,6 +83,13 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="startButton">
+       <property name="font">
+        <font>
+         <family>Dyuthi</family>
+         <pointsize>14</pointsize>
+         <kerning>true</kerning>
+        </font>
+       </property>
        <property name="focusPolicy">
         <enum>Qt::NoFocus</enum>
        </property>
@@ -91,6 +100,13 @@
      </item>
      <item>
       <widget class="QPushButton" name="pauseButton">
+       <property name="font">
+        <font>
+         <family>Dyuthi</family>
+         <pointsize>14</pointsize>
+         <kerning>true</kerning>
+        </font>
+       </property>
        <property name="focusPolicy">
         <enum>Qt::NoFocus</enum>
        </property>
@@ -149,7 +165,7 @@
      <enum>QFrame::Sunken</enum>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -161,8 +177,17 @@
     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0">
      <item>
       <widget class="QLabel" name="label_game">
+       <property name="font">
+        <font>
+         <family>Dyuthi</family>
+         <pointsize>16</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+         <kerning>true</kerning>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">font: bold large &quot;Times New Roman&quot;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Game</string>
@@ -176,6 +201,13 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QLabel" name="game_count_1">
+         <property name="font">
+          <font>
+           <family>Dyuthi</family>
+           <pointsize>14</pointsize>
+           <kerning>true</kerning>
+          </font>
+         </property>
          <property name="text">
           <string>0</string>
          </property>
@@ -186,6 +218,13 @@
        </item>
        <item>
         <widget class="QLabel" name="game_count_sep">
+         <property name="font">
+          <font>
+           <family>Dyuthi</family>
+           <pointsize>14</pointsize>
+           <kerning>true</kerning>
+          </font>
+         </property>
          <property name="text">
           <string>/</string>
          </property>
@@ -196,6 +235,13 @@
        </item>
        <item>
         <widget class="QLabel" name="game_count_2">
+         <property name="font">
+          <font>
+           <family>Dyuthi</family>
+           <pointsize>14</pointsize>
+           <kerning>true</kerning>
+          </font>
+         </property>
          <property name="text">
           <string>0</string>
          </property>
@@ -208,7 +254,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -220,8 +266,18 @@
     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="1,4">
      <item>
       <widget class="QLabel" name="label_7">
+       <property name="font">
+        <font>
+         <family>Dyuthi</family>
+         <pointsize>16</pointsize>
+         <weight>75</weight>
+         <italic>false</italic>
+         <bold>true</bold>
+         <kerning>true</kerning>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">font: bold large &quot;Times New Roman&quot;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Player 1</string>
@@ -237,6 +293,13 @@
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
           <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <family>Dyuthi</family>
+             <pointsize>14</pointsize>
+             <kerning>true</kerning>
+            </font>
+           </property>
            <property name="text">
             <string>Points :</string>
            </property>
@@ -244,6 +307,13 @@
          </item>
          <item>
           <widget class="QLabel" name="label_2">
+           <property name="font">
+            <font>
+             <family>Dyuthi</family>
+             <pointsize>14</pointsize>
+             <kerning>true</kerning>
+            </font>
+           </property>
            <property name="text">
             <string>Lines :</string>
            </property>
@@ -251,6 +321,13 @@
          </item>
          <item>
           <widget class="QLabel" name="label_3">
+           <property name="font">
+            <font>
+             <family>Dyuthi</family>
+             <pointsize>14</pointsize>
+             <kerning>true</kerning>
+            </font>
+           </property>
            <property name="text">
             <string>Swaps :</string>
            </property>
@@ -262,6 +339,13 @@
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
           <widget class="QLabel" name="player_1_points">
+           <property name="font">
+            <font>
+             <family>Dyuthi</family>
+             <pointsize>14</pointsize>
+             <kerning>true</kerning>
+            </font>
+           </property>
            <property name="text">
             <string>0</string>
            </property>
@@ -272,6 +356,13 @@
          </item>
          <item>
           <widget class="QLabel" name="player_1_lines">
+           <property name="font">
+            <font>
+             <family>Dyuthi</family>
+             <pointsize>14</pointsize>
+             <kerning>true</kerning>
+            </font>
+           </property>
            <property name="text">
             <string>0</string>
            </property>
@@ -282,6 +373,13 @@
          </item>
          <item>
           <widget class="QLabel" name="player_1_swap">
+           <property name="font">
+            <font>
+             <family>Dyuthi</family>
+             <pointsize>14</pointsize>
+             <kerning>true</kerning>
+            </font>
+           </property>
            <property name="text">
             <string>0</string>
            </property>
@@ -296,7 +394,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -308,8 +406,18 @@
     <layout class="QVBoxLayout" name="verticalLayout_7" stretch="1,4">
      <item>
       <widget class="QLabel" name="label_8">
+       <property name="font">
+        <font>
+         <family>Dyuthi</family>
+         <pointsize>16</pointsize>
+         <weight>75</weight>
+         <italic>false</italic>
+         <bold>true</bold>
+         <kerning>true</kerning>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">font: bold large &quot;Times New Roman&quot;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Player 2</string>
@@ -325,6 +433,13 @@
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
           <widget class="QLabel" name="label_4">
+           <property name="font">
+            <font>
+             <family>Dyuthi</family>
+             <pointsize>14</pointsize>
+             <kerning>true</kerning>
+            </font>
+           </property>
            <property name="text">
             <string>Points :</string>
            </property>
@@ -332,6 +447,13 @@
          </item>
          <item>
           <widget class="QLabel" name="label_5">
+           <property name="font">
+            <font>
+             <family>Dyuthi</family>
+             <pointsize>14</pointsize>
+             <kerning>true</kerning>
+            </font>
+           </property>
            <property name="text">
             <string>Lines :</string>
            </property>
@@ -339,6 +461,13 @@
          </item>
          <item>
           <widget class="QLabel" name="label_6">
+           <property name="font">
+            <font>
+             <family>Dyuthi</family>
+             <pointsize>14</pointsize>
+             <kerning>true</kerning>
+            </font>
+           </property>
            <property name="text">
             <string>Swaps :</string>
            </property>
@@ -350,6 +479,13 @@
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
           <widget class="QLabel" name="player_2_points">
+           <property name="font">
+            <font>
+             <family>Dyuthi</family>
+             <pointsize>14</pointsize>
+             <kerning>true</kerning>
+            </font>
+           </property>
            <property name="layoutDirection">
             <enum>Qt::LeftToRight</enum>
            </property>
@@ -363,6 +499,13 @@
          </item>
          <item>
           <widget class="QLabel" name="player_2_lines">
+           <property name="font">
+            <font>
+             <family>Dyuthi</family>
+             <pointsize>14</pointsize>
+             <kerning>true</kerning>
+            </font>
+           </property>
            <property name="text">
             <string>0</string>
            </property>
@@ -373,6 +516,13 @@
          </item>
          <item>
           <widget class="QLabel" name="player_2_swap">
+           <property name="font">
+            <font>
+             <family>Dyuthi</family>
+             <pointsize>14</pointsize>
+             <kerning>true</kerning>
+            </font>
+           </property>
            <property name="text">
             <string>0</string>
            </property>
@@ -394,7 +544,7 @@
      <x>0</x>
      <y>0</y>
      <width>840</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSettings">

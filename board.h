@@ -20,7 +20,6 @@ private slots:
 private:
     void paintEvent(QPaintEvent *e) override;
 
-    const int m_innerSquareSize = 8;
     DataManager *dataManager;
 };
 
