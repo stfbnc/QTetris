@@ -49,21 +49,33 @@ QColor TetrisPiece::getColor()
 
 int TetrisPiece::getRightPosition()
 {
-    QPolygon poly(QVector<QPoint>(m_pieceCoords.begin(), m_pieceCoords.end()));
+    // qt 5.14
+    // QPolygon poly(QVector<QPoint>(m_pieceCoords.begin(), m_pieceCoords.end()));
+    // qt 5.12
+    QVector<QPoint> vec = QVector<QPoint>::fromStdVector(m_pieceCoords);
+    QPolygon poly(vec);
 
     return (poly.boundingRect().right() + STEP);
 }
 
 int TetrisPiece::getLeftPosition()
 {
-    QPolygon poly(QVector<QPoint>(m_pieceCoords.begin(), m_pieceCoords.end()));
+    // qt 5.14
+    // QPolygon poly(QVector<QPoint>(m_pieceCoords.begin(), m_pieceCoords.end()));
+    // qt 5.12
+    QVector<QPoint> vec = QVector<QPoint>::fromStdVector(m_pieceCoords);
+    QPolygon poly(vec);
 
     return poly.boundingRect().left();
 }
 
 int TetrisPiece::getBottomPosition()
 {
-    QPolygon poly(QVector<QPoint>(m_pieceCoords.begin(), m_pieceCoords.end()));
+    // qt 5.14
+    // QPolygon poly(QVector<QPoint>(m_pieceCoords.begin(), m_pieceCoords.end()));
+    // qt 5.12
+    QVector<QPoint> vec = QVector<QPoint>::fromStdVector(m_pieceCoords);
+    QPolygon poly(vec);
 
     return (poly.boundingRect().bottom() + STEP);
 }
