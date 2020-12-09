@@ -1,3 +1,5 @@
 # QTetris
 
-Double player Tetris.
+Two-players Tetris.
+
+![qtetris_screenshot](qtetris_screenshot.png)
