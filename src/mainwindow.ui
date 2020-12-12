@@ -190,7 +190,7 @@
         <string notr="true"/>
        </property>
        <property name="text">
-        <string>Game</string>
+        <string>Round</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

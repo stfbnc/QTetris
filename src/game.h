@@ -24,6 +24,7 @@ public:
     ~Game();
     void move(MOVES direction);
     void setGames(int games);
+    void resetGames();
 public slots:
     void setSpeed(int speed);
     void resumeGame();

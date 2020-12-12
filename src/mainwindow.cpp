@@ -75,7 +75,7 @@ void MainWindow::setControls(QKeySequence r1, QKeySequence l1, QKeySequence d1, 
 void MainWindow::setGames()
 {
     bool ok;
-    int g = QInputDialog::getInt(this, "Set games", "Games:", nGames, 1, MAX_GAMES, 1, &ok);
+    int g = QInputDialog::getInt(this, "Set games", "Rounds:", nGames, 1, MAX_GAMES, 1, &ok);
     if(ok)
     {
         nGames = g;
@@ -143,6 +143,9 @@ void MainWindow::resetGame()
 
     ui->startButton->setEnabled(true);
     ui->pauseButton->setEnabled(false);
+
+    game1->resetGames();
+    game2->resetGames();
 }
 
 void MainWindow::setDarkTheme()

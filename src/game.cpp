@@ -66,6 +66,11 @@ void Game::setGames(int games)
     maxGames = games;
 }
 
+void Game::resetGames()
+{
+    gameCount = 1;
+}
+
 void Game::setSpeed(int speed)
 {
     this->speed = speed;
@@ -131,7 +136,7 @@ void Game::updateGame()
                 }
                 else
                 {
-                    gameCount = 1;
+                    //gameCount = 1;
                     stopGame();
                     deletePiece();
                     emit endGame();
