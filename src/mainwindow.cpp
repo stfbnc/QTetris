@@ -133,6 +133,8 @@ void MainWindow::pauseGame()
 
 void MainWindow::resetGame()
 {
+    QSound::play(":/sounds/lost.wav");
+
     running = false;
     isFirstGame = false;
 
@@ -171,26 +173,46 @@ void MainWindow::createConnections()
 {
     connect(this, SIGNAL(speedChanged(int)), game1, SLOT(setSpeed(int)), Qt::QueuedConnection);
     connect(this, SIGNAL(speedChanged(int)), game2, SLOT(setSpeed(int)), Qt::QueuedConnection);
+
     connect(this, SIGNAL(stopGame()), game1, SLOT(stopGame()), Qt::QueuedConnection);
     connect(this, SIGNAL(stopGame()), game2, SLOT(stopGame()), Qt::QueuedConnection);
+
     connect(this, SIGNAL(resumeGame()), game1, SLOT(resumeGame()), Qt::QueuedConnection);
     connect(this, SIGNAL(resumeGame()), game2, SLOT(resumeGame()), Qt::QueuedConnection);
+
     connect(this, SIGNAL(playAgain()), game1, SLOT(playAgain()), Qt::QueuedConnection);
     connect(this, SIGNAL(playAgain()), game2, SLOT(playAgain()), Qt::QueuedConnection);
+
     connect(game1, SIGNAL(endGame()), game2, SLOT(stopGame()));
     connect(game1, SIGNAL(endGame()), this, SLOT(resetGame()));
     connect(game2, SIGNAL(endGame()), game1, SLOT(stopGame()));
     connect(game2, SIGNAL(endGame()), this, SLOT(resetGame()));
+
     connect(gameData1, SIGNAL(swapLines(std::map<std::pair<int, int>, QColor>, int)),
             gameData2, SLOT(addSwapLines(std::map<std::pair<int, int>, QColor>, int)));
     connect(gameData2, SIGNAL(swapLines(std::map<std::pair<int, int>, QColor>, int)),
             gameData1, SLOT(addSwapLines(std::map<std::pair<int, int>, QColor>, int)));
+    connect(gameData1, &DataManager::swapLines, this, [](){
+        QSound::play(":/sounds/swap.wav");
+    });
+    connect(gameData2, &DataManager::swapLines, this, [](){
+        QSound::play(":/sounds/swap.wav");
+    });
+
+    connect(gameData1, &DataManager::lineCleared, this, [](){
+        QSound::play(":/sounds/line.wav");
+    });
+    connect(gameData2, &DataManager::lineCleared, this, [](){
+        QSound::play(":/sounds/line.wav");
+    });
+
     connect(gameData1, &DataManager::gameCount, this, [&](int count){
         ui->game_count_1->setText(QString::number(count));
     });
     connect(gameData2, &DataManager::gameCount, this, [&](int count){
         ui->game_count_2->setText(QString::number(count));
     });
+
     connect(gameData1, &DataManager::updatePoints, this, [&](int p, int l, int s){
         ui->player_1_points->setText(QString::number(p));
         ui->player_1_lines->setText(QString::number(l));

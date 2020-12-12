@@ -3,7 +3,7 @@ TARGET = Mattoncini
 
 QT += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
 CONFIG += c++17
 
@@ -46,3 +46,6 @@ HEADERS += \
 FORMS += \
     gamecontrols.ui \
     mainwindow.ui
+
+RESOURCES += \
+    sounds.qrc

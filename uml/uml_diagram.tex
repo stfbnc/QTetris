@@ -1,0 +1,282 @@
+\documentclass[tikz]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{tikz-uml}
+\usetikzlibrary{positioning}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\tikzumlset{font=\scriptsize}
+\begin{tikzpicture}
+
+\umlclass[x=2, y=0]{GameControls}
+{
+	-- right1 : QKeySequence \\
+    -- left1 : QKeySequence \\
+    -- down1 : QKeySequence \\
+    -- rotate1 : QKeySequence \\
+    -- right2 : QKeySequence \\
+    -- left2 : QKeySequence \\
+    -- down2 : QKeySequence \\
+    -- rotate2 : QKeySequence
+}
+{
+	-- okPressed(QKeySequence, QKeySequence, \\
+	\qquad \qquad \quad \ \ QKeySequence, QKeySequence, \\
+	\qquad \qquad \quad \ \ QKeySequence, QKeySequence, \\
+	\qquad \qquad \quad \ \ QKeySequence, QKeySequence) : \\
+	\qquad \qquad \quad \ \ <signal> : void \\
+	-- onCancelButton() : <slot> : void \\
+    -- onOkButton() : <slot> : void \\
+    + getPlayer1RightKey() : QKeySequence \\
+    + getPlayer1LeftKey() : QKeySequence \\
+    + getPlayer1DownKey() : QKeySequence \\
+    + getPlayer1RotateKey() : QKeySequence \\
+    + getPlayer2RightKey() : QKeySequence \\
+    + getPlayer2LeftKey() : QKeySequence \\
+    + getPlayer2DownKey() : QKeySequence \\
+    + getPlayer2RotateKey() : QKeySequence
+}
+
+\umlclass[x=12, y=2]{Board}
+{
+	-- dataManager : DataManager
+}
+{
+	-- updateBoard() : <signal> : void \\
+	-- paintEvent(QPaintEvent) : void \\
+	+ setDataManager(DataManager) : void
+}
+
+\umlclass[x=2, y=-11.5]{MainWindow}
+{
+	-- thread1 : QThread \\
+    -- thread2 : QThread \\
+    -- game1 : Game \\
+    -- game2 : Game \\
+    -- gameData1 : DataManager \\
+    -- gameData2 : DataManager \\
+    -- running : bool \\
+    -- isFirstGame : bool \\
+    -- nGames : int \\
+	-- right1 : QKeySequence \\
+    -- left1 : QKeySequence \\
+    -- down1 : QKeySequence \\
+    -- rotate1 : QKeySequence \\
+    -- right2 : QKeySequence \\
+    -- left2 : QKeySequence \\
+    -- down2 : QKeySequence \\
+    -- rotate2 : QKeySequence
+}
+{
+	-- setDarkTheme() : void \\
+    -- createConnections() : void \\
+    -- initializeGame() : void \\
+    -- setStartingPoints() : void \\
+    -- closeEvent(QCloseEvent) : void \\
+    -- keyPressEvent(QKeyEvent) : void \\
+    -- openControls() : <slot> : void \\
+    -- stopGame() : <signal> : void \\
+    -- resumeGame() : <signal> : void \\
+    -- playAgain() : <signal> : void \\
+    -- speedChanged(int) : <signal> : void \\
+    -- setControls(QKeySequence, QKeySequence, \\
+	\qquad \qquad \quad \ \ QKeySequence, QKeySequence, \\
+	\qquad \qquad \quad \ \ QKeySequence, QKeySequence, \\
+	\qquad \qquad \quad \ \ QKeySequence, QKeySequence) : \\
+	\qquad \qquad \quad \ \ <signal> : void \\
+    -- setGames() : <slot> : void \\
+    -- startGame() : <slot> : void \\
+    -- pauseGame() : <slot> : void \\
+    -- resetGame() : <slot> : void
+}
+
+\umlclass[x=12, y=-7]{DataManager}
+{
+	-- leftBorder : int \\
+    -- rightBorder : int \\
+    -- bottomBorder : int \\
+    -- points : int \\
+    -- lines : int \\
+    -- swaps : int \\
+    -- games : int \\
+    -- color : QColor \\
+    -- pieceCoords : vector<QPoint> \\
+    -- boardMap : map<pair<int, int>, QColor> \\
+    -- swapPieces : map<pair<int, int>, QColor>
+}
+{
+	-- removeLine(int) : void \\
+    -- addLineToSwap(int, int ) : void \\
+    -- updateBoard() : <signal> : void \\
+    -- lineCleared() : <signal> : void \\
+    -- swapLines(map<pair<int, int>, QColor>, int) : \\
+    \qquad \qquad \quad \ \ <signal> : void \\
+    -- gameCount(int) : <signal> : void \\
+    -- updatePoints(int, int, int) : <signal> : void \\
+    + addSwapLines(map<pair<int, int>, QColor>, int) : \\
+    \qquad \qquad \qquad \quad \ \ <slot> : void \\
+    + setPieceColor(QColor) : void \\
+    + getPieceColor() : const QColor \\
+    + setPieceCoords(vector<QPoint>) : void \\
+    + addPieceToBoard() : void \\
+    + getPieceCoords() : const vector<QPoint> \\
+    + setBorders(int, int, int) : void \\
+    + getRightBorder() : int \\
+    + getLeftBorder() : int \\
+    + getBottomBorder() : int \\
+    + initializeMap() : void \\
+    + resetScores() : void \\
+    + getBoardMap() : const map<pair<int, int>, QColor> \\
+    + addPoints(int) : void \\
+    + increaseGameCount() : void
+}
+
+\umlclass[x=12, y=-18]{Game}
+{
+	-- maxGames : int \\
+    -- gameCount : int \\
+    -- running : bool \\
+    -- moving : bool \\
+    -- speed : int \\
+    -- timer : QTimer \\
+    -- currentPiece : TetrisPiece \\
+    -- dataManager : DataManager
+}
+{
+	-- newPiece() : void \\
+    -- deletePiece() : void \\
+    --  canMove(MOVES) : bool \\
+    -- endGame() : <signal> : void \\
+    + setSpeed(int) : <slot> : void \\
+	+ resumeGame() : <slot> : void \\
+	+ playAgain() : <slot> : void \\
+	+ stopGame() : <slot> : void \\
+	+ startGame() : <slot> : void \\
+	+ updateGame() : <slot> : void \\
+	+ move(MOVES) : void \\
+    + setGames(int) : void
+}
+
+\umlclass[x=8, y=-25]{PieceFactory}
+{
+	-- \umlstatic{piecesMap : const map<int, QString>}
+}
+{
+	-- \umlstatic{getRandomNumber(int, int) : int} \\
+	+ \umlstatic{getRandomPiece() : TetrisPiece}
+}
+
+\umlclass[x=0, y=-30]{I}
+{
+}
+{
+	+ clone() : I \\
+    + initialize() : void \\
+    + rotate() : void
+}
+
+\umlclass[x=3, y=-30]{J}
+{
+}
+{
+	+ clone() : J \\
+    + initialize() : void \\
+    + rotate() : void
+}
+
+\umlclass[x=6, y=-30]{L}
+{
+}
+{
+	+ clone() : L \\
+    + initialize() : void \\
+    + rotate() : void
+}
+
+\umlclass[x=9, y=-30]{O}
+{
+}
+{
+	+ clone() : O \\
+    + initialize() : void \\
+    + rotate() : void
+}
+
+\umlclass[x=12, y=-30]{S}
+{
+}
+{
+	+ clone() : S \\
+    + initialize() : void \\
+    + rotate() : void
+}
+
+\umlclass[x=15, y=-30]{Z}
+{
+}
+{
+	+ clone() : Z \\
+    + initialize() : void \\
+    + rotate() : void
+}
+
+\umlclass[x=18, y=-30]{T}
+{
+}
+{
+	+ clone() : T \\
+    + initialize() : void \\
+    + rotate() : void
+}
+
+\umlclass[x=8, y=-37, type=abstract]{TetrisPiece}
+{
+	\# m\_pieceCoords : vector<QPoint> \\
+    \# m\_color : QColor \\
+    \# m\_nRot : int \\
+    \# rightPos : int \\
+    \# leftPos : int \\
+    \# startPoint : QPoint
+}
+{
+	\umlvirt{+ clone() : TetrisPiece} \\
+    \umlvirt{+ initialize() : void} \\
+    + moveRight() : void \\
+    + moveLeft() : void \\
+    + moveDown() : void \\
+    \umlvirt{+ rotate() : void} \\
+    + getPieceCoords() : vector<QPoint> \\
+    + getColor() : QColor \\
+    + getRightPosition() : int \\
+    + getLeftPosition() : int \\
+    + getBottomPosition() : int
+}
+
+\umluniassoc[mult=1, align=left]{Board}{DataManager}
+\umldep{MainWindow}{GameControls}
+\umlunicompo[mult=2]{MainWindow}{DataManager}
+\umlunicompo[mult=2]{MainWindow}{Game}
+\umluniassoc[mult=1, align=left]{Game}{DataManager}
+\umlunicompo[mult=1]{Game}{PieceFactory}
+\umlCNdep[stereo=create, pos stereo=1.6]{PieceFactory}{0,-25}{I}
+\umlCNdep[stereo=create, pos stereo=1.6]{PieceFactory}{3,-25}{J}
+\umlCNdep[stereo=create, pos stereo=1.6]{PieceFactory}{6,-25}{L}
+\umlCNdep[stereo=create, pos stereo=1.6]{PieceFactory}{9,-25}{O}
+\umlCNdep[stereo=create, pos stereo=1.6]{PieceFactory}{12,-25}{S}
+\umlCNdep[stereo=create, pos stereo=1.6]{PieceFactory}{15,-25}{Z}
+\umlCNdep[stereo=create, pos stereo=1.6]{PieceFactory}{18,-25}{T}
+\umlCNimpl{I}{0,-37}{TetrisPiece}
+\umlCNimpl{J}{3,-36}{TetrisPiece}
+\umlimpl{L}{TetrisPiece}
+\umlimpl{O}{TetrisPiece}
+\umlCNimpl{S}{12,-35}{TetrisPiece}
+\umlCNimpl{Z}{15,-36}{TetrisPiece}
+\umlCNimpl{T}{18,-37}{TetrisPiece}
+
+\end{tikzpicture}
+
+\end{document}

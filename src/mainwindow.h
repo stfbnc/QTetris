@@ -6,6 +6,7 @@
 #include <QKeyEvent>
 #include <QThread>
 #include <QInputDialog>
+#include <QSound>
 #include "board.h"
 #include "datamanager.h"
 #include "game.h"

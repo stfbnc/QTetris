@@ -66,6 +66,10 @@ void DataManager::addPieceToBoard()
         qRegisterMetaType<std::map<std::pair<int, int>, QColor>>("std::map<std::pair<int, int>, QColor>");
         emit swapLines(swapPieces, nFullLines);
     }
+    else if(nFullLines == 1)
+    {
+        emit lineCleared();
+    }
 
     emit updatePoints(points, lines, swaps);
 }

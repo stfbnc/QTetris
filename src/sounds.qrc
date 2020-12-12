@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>sounds/line.wav</file>
+        <file>sounds/lost.wav</file>
+        <file>sounds/swap.wav</file>
+    </qresource>
+</RCC>

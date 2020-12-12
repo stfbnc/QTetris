@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QColor>
 #include <QPoint>
+#include <QSound>
 #include "defines.h"
 
 class DataManager : public QObject
@@ -29,6 +30,7 @@ public:
     void increaseGameCount();
 signals:
     void updateBoard();
+    void lineCleared();
     void swapLines(std::map<std::pair<int, int>, QColor>, int);
     void gameCount(int);
     void updatePoints(int, int, int);
