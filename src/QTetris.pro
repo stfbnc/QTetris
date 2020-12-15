@@ -1,5 +1,6 @@
 TEMPLATE = app
 TARGET = Mattoncini
+ICON = icon/ttr_round.icns
 
 QT += core gui
 
